@@ -19,6 +19,6 @@ You will need [Ammonite] installed in your system. You can do that by running:
     brew install ammonite-repl
 
 Checkout this repo and modify [yabairc.sc](yabairc.sc) file according to your liking.
-Then run `./yabai`.
+Then run `./yabairc`.
 
 [Ammonite]: https://ammonite.io/
