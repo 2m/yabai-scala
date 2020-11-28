@@ -6,7 +6,9 @@ for {
   _ <- (yabai.spaces.max until 10)
 } yield yabai ! "space --create"
 
-yabai no_manage (App("System Preferences"), Title("gpg-copy"))
+// Query for app names and title of running apps with:
+// yabai -m query --windows | jq '.[] | {app: .app, title: .title}'
+yabai no_manage (App("choose"), App("System Preferences"), Title("gpg-copy"))
 
 yabai config 'window_topmost -> true
 yabai config 'window_gap -> 2
