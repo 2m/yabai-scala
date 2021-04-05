@@ -28,3 +28,4 @@ developers := List(
     url("https://github.com/2m/yabai-scala/graphs/contributors")
   )
 )
+sonatypeProfileName := "lt.dvim"
