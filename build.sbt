@@ -1,3 +1,7 @@
+organization := "lt.dvim.yabai"
+name := "yabai-scala"
+description := "Scala DSL for yabai configuration"
+
 scalaVersion := "3.0.0-RC2"
 
 scalacOptions += "-source:future"
@@ -9,3 +13,8 @@ libraryDependencies ++= Seq(
 )
 
 testFrameworks += new TestFramework("munit.Framework")
+
+enablePlugins(AutomateHeaderPlugin)
+startYear := Some(2020)
+organizationName := "github.com/2m/yabai-scala/contributors"
+licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
