@@ -14,4 +14,45 @@ But eventually more useful features were implemented.
 
 ## Usage
 
-*TBD when artifact is released*
+Yabai Scala can be used as a regular Scala library.
+However it works realy great with [tsk][].
+This allows seamless integration into system configuration dotfiles.
+
+For example the following file:
+
+```scala
+/ 2> /dev/null \
+/*
+scala_version="3.0.0-RC2"
+dependencies="
+  lt.dvim.yabai:yabai-scala_3.0.0-RC2:1.0.2
+"
+source $(curl -sL git.io/boot-tsk | sh)
+run
+exit
+ */
+
+import lt.dvim.yabai.*
+
+import scala.language.implicitConversions
+
+@main def run() =
+    for {
+    _ <- (yabai.spaces.max until 10)
+    } yield yabai ! "space --create"
+```
+
+is a standalone script, which when run by `sh` will create yabai spaces until the
+total number of spaces reaches 10:
+
+```sh
+~ ─╼ sh Yabai.scala                                                                                   0
+Fetching all libraries the script depends upon
+ [##########]   Downloaded 1 POM files in 0 s
+ [##########]   Downloaded 22 JAR files in 10 s
+Compiling Yabai (1 Scala source)
+Compiled Yabai (229ms)
+Executing: yabai -m query --spaces
+```
+
+[tsk]: https://github.com/tsk-tsk/tsk-tsk
