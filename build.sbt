@@ -12,8 +12,6 @@ libraryDependencies ++= Seq(
   "org.scalameta" %% "munit"        % "0.7.23" % Test
 )
 
-testFrameworks += new TestFramework("munit.Framework")
-
 enablePlugins(AutomateHeaderPlugin)
 startYear := Some(2020)
 organizationName := "github.com/2m/yabai-scala/contributors"
