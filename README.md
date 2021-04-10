@@ -21,7 +21,7 @@ This allows seamless integration into system configuration dotfiles.
 For example the following file:
 
 ```scala
-/ 2> /dev/null \
+// 2> /dev/null \
 /*
 scala_version="3.0.0-RC2"
 dependencies="
