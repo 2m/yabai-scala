@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   "org.scalameta" %% "munit"        % "0.7.23" % Test
 )
 
+scalafmtOnCompile := true
+
 enablePlugins(AutomateHeaderPlugin)
 startYear := Some(2020)
 organizationName := "github.com/2m/yabai-scala/contributors"

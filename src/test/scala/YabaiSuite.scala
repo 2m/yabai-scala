@@ -20,29 +20,29 @@ import io.circe.Json
 
 class YabaiSuite extends MySuite:
 
-   test("!") {
-      yabai ! "rule --remove 0" equalsTo "yabai -m rule --remove 0"
-   }
+  test("!") {
+    yabai ! "rule --remove 0" equalsTo "yabai -m rule --remove 0"
+  }
 
-   test("?") {
-      cmdReturns(Json.obj())
-      yabai ? "spaces" equalsTo Json.obj()
-   }
+  test("?") {
+    cmdReturns(Json.obj())
+    yabai ? "spaces" equalsTo Json.obj()
+  }
 
-   test("spaces") {
-      val spaces = (0 to 9).toList
-      cmdReturns(Json.arr(spaces map (idx => Json.obj("index" -> Json.fromInt(idx)))*))
-      yabai.spaces equalsTo spaces
-   }
+  test("spaces") {
+    val spaces = (0 to 9).toList
+    cmdReturns(Json.arr(spaces map (idx => Json.obj("index" -> Json.fromInt(idx)))*))
+    yabai.spaces equalsTo spaces
+  }
 
-   test("config boolean") {
-      yabai config "window_shadow" -> false cmdEqualsTo "yabai -m config window_shadow off"
-   }
+  test("config boolean") {
+    yabai config "window_shadow" -> false cmdEqualsTo "yabai -m config window_shadow off"
+  }
 
-   test("config string") {
-      yabai config "layout" -> "bsp" cmdEqualsTo "yabai -m config layout bsp"
-   }
+  test("config string") {
+    yabai config "layout" -> "bsp" cmdEqualsTo "yabai -m config layout bsp"
+  }
 
-   test("config double") {
-      yabai config "split_ratio" -> 0.5 cmdEqualsTo "yabai -m config split_ratio 0.5000"
-   }
+  test("config double") {
+    yabai config "split_ratio" -> 0.5 cmdEqualsTo "yabai -m config split_ratio 0.5000"
+  }
