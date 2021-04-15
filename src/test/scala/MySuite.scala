@@ -31,9 +31,7 @@ open trait MySuite extends munit.FunSuite:
   type WithYabai[T] = Yabai ?=> T
 
   extension [T](v: T) infix def equalsTo(v2: T) = assertEquals(v, v2)
-  extension (u: Unit)
-    infix def cmdEqualsTo(str: String): WithRunner =
-      assertEquals(summon[Runner].cmd, str)
+  extension (u: Unit) infix def cmdEqualsTo(str: String): WithRunner = assertEquals(summon[Runner].cmd, str)
 
   case class MyFixture(underlying: FunFixture[(Yabai, TestRunner)]):
     def test(s: String)(body: Testable) = underlying.test(s) { (yabai, runner) =>
