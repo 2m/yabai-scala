@@ -39,7 +39,7 @@ open trait MySuite extends munit.FunSuite:
     }
 
   object MyFixture:
-    def apply(setup: () => (Yabai, TestRunner)): MyFixture = new MyFixture(
+    def apply(setup: () => (Yabai, TestRunner)): MyFixture = MyFixture(
       FunFixture[(Yabai, TestRunner)](
         setup = { test =>
           val runner = TestRunner()

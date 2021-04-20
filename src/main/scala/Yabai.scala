@@ -48,7 +48,7 @@ object Config:
 case class Yabai(runner: Runner):
   private def parsed(result: String) =
     parse(result) match
-      case Left(failure) => throw new Exception("Got an invalid json")
+      case Left(failure) => throw Exception("Got an invalid json")
       case Right(json)   => json
 
   private def cleanRules() =
