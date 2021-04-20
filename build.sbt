@@ -2,14 +2,14 @@ organization := "lt.dvim.yabai"
 name := "yabai-scala"
 description := "Scala DSL for yabai configuration"
 
-scalaVersion := "3.0.0-RC2"
+scalaVersion := "3.0.0-RC3"
 
 scalacOptions += "-source:future"
 
 libraryDependencies ++= Seq(
   ("io.circe"     %% "circe-parser" % "0.13.0").cross(CrossVersion.for3Use2_13),
   ("io.circe"     %% "circe-optics" % "0.13.0").cross(CrossVersion.for3Use2_13),
-  "org.scalameta" %% "munit"        % "0.7.23" % Test
+  "org.scalameta" %% "munit"        % "0.7.25" % Test
 )
 
 scalafmtOnCompile := true
