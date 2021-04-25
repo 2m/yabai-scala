@@ -23,7 +23,7 @@ open trait MySuite extends munit.FunSuite:
     var json: Option[Json] = None
     var cmd = ""
     def run(command: String) =
-      cmd = command
+      cmd += command
       json.map(_.toString).getOrElse(command)
 
   type Testable = Yabai ?=> TestRunner ?=> Any
@@ -31,7 +31,12 @@ open trait MySuite extends munit.FunSuite:
   type WithYabai[T] = Yabai ?=> T
 
   extension [T](v: T) infix def equalsTo(v2: T) = assertEquals(v, v2)
-  extension (u: Unit) infix def cmdEqualsTo(str: String): WithRunner = assertEquals(summon[Runner].cmd, str)
+  extension (u: Unit)
+    infix def cmdIs(str: String): WithRunner = {
+      val cmd = summon[Runner].cmd
+      if (!cmd.contains(str))
+        assertEquals(cmd, str)
+    }
 
   case class MyFixture(underlying: FunFixture[(Yabai, TestRunner)]):
     def test(s: String)(body: Testable) = underlying.test(s) { (yabai, runner) =>
