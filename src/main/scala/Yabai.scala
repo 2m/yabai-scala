@@ -38,12 +38,27 @@ enum Rule:
   case App(app: String)
   case Title(title: String)
 
-case class Config(key: String, value: String)
-object Config:
-  given fromBoolean: Conversion[(String, Boolean), Config] = (key, value) => Config(key, if (value) "on" else "off")
-  given fromString: Conversion[(String, String), Config] = (key, value) => Config(key, value)
-  given fromInt: Conversion[(String, Int), Config] = (key, value) => Config(key, value.toString)
-  given fromDouble: Conversion[(String, Double), Config] = (key, value) => Config(key, value.str)
+trait on; case object on extends on
+trait off; case object off extends off
+
+trait bsp; case object bsp extends bsp
+trait stack; case object stack extends stack
+trait float; case object float extends float
+
+trait first_child; case object first_child extends first_child
+trait second_child; case object second_child extends second_child
+
+trait autofocus; case object autofocus extends autofocus
+trait autoraise; case object autoraise extends autoraise
+
+trait cmd; case object cmd extends cmd
+trait alt; case object alt extends alt
+trait shift; case object shift extends shift
+trait ctrl; case object ctrl extends ctrl
+trait fn; case object fn extends fn
+
+trait move; case object move extends move
+trait resize; case object resize extends resize
 
 case class Yabai(runner: Runner):
   private def parsed(result: String) =
@@ -63,7 +78,7 @@ case class Yabai(runner: Runner):
   def ?(query: String): Json = parsed(this ! s"query --$query")
   def rule(query: String): Json = parsed(this ! s"rule --$query")
 
-  infix def spaces = this ? "spaces" / root.each.selectDynamic("index").int
+  def spaces = this ? "spaces" / root.each.selectDynamic("index").int
 
   infix def no_manage(rules: Rule*) =
     cleanRules()
@@ -75,45 +90,39 @@ case class Yabai(runner: Runner):
       .map(r => s"rule --add $r manage=off")
       .map(this ! _)
 
-  infix def config(config: Config) = this.configIfChanged(config.key, config.value)
+  infix def window_topmost(v: on | off) = this.ifChanged("window_topmost", v.toString)
+  infix def window_gap(v: Int) = this.ifChanged("window_gap", v.toString)
+  infix def window_shadow(v: on | off) = this.ifChanged("window_shadow", v.toString)
 
-  infix def padding(top: Int, right: Int, bottom: Int, left: Int): Unit =
-    List(
-      "top_padding" -> s"$top",
-      "right_padding" -> s"$right",
-      "bottom_padding" -> s"$bottom",
-      "left_padding" -> s"$left"
-    ).map((this.configIfChanged).tupled)
+  infix def layout(v: bsp | stack | float) = this.ifChanged("layout", v.toString)
+  infix def auto_balance(v: on | off) = this.ifChanged("auto_balance", v.toString)
+  infix def window_placement(v: first_child | second_child) = this.ifChanged("window_placement", v.toString)
+  infix def split_ratio(v: Float) = this.ifChanged("split_ratio", v.toString)
 
-  infix def padding(all: Int): Unit = padding(all, all, all, all)
+  infix def mouse_follows_focus(v: on | off) = this.ifChanged("mouse_follows_focus", v.toString)
+  infix def focus_follows_mouse(v: autofocus | autoraise | off) = this.ifChanged("focus_follows_mouse", v.toString)
 
-  infix def mouse(mod: String, action1: String, action2: String) =
-    List(
-      "mouse_modifier" -> mod,
-      "mouse_action1" -> action1,
-      "mouse_action2" -> action2
-    ).map((this.configIfChanged).tupled)
+  infix def mouse_modifier(v: cmd | alt | shift | ctrl | fn) = this.ifChanged("mouse_modifier", v.toString)
+  infix def mouse_action1(v: move | resize) = this.ifChanged("mouse_action1", v.toString)
+  infix def mouse_action2(v: move | resize) = this.ifChanged("mouse_action2", v.toString)
 
-  infix def opacity(active: Double, normal: Double) =
-    (if (active + normal == 2.0) List("window_opacity" -> "off")
-     else
-       List(
-         "window_opacity" -> "on",
-         "active_window_opacity" -> active.str,
-         "normal_window_opacity" -> normal.str
-       )).map((this.configIfChanged).tupled)
+  infix def window_opacity(v: on | off) = this.ifChanged("window_opacity", v.toString)
+  infix def active_window_opacity(v: Float) = this.ifChanged("active_window_opacity", v.toString)
+  infix def normal_window_opacity(v: Float) = this.ifChanged("normal_window_opacity", v.toString)
 
-  infix def border(width: Int, active: Int, normal: Int) =
-    (if (width == 0) List("window_border" -> "off")
-     else
-       List(
-         "window_border" -> "on",
-         "window_border_width" -> s"$width",
-         "active_window_border_color" -> active.hex,
-         "normal_window_border_color" -> normal.hex
-       )).map((this.configIfChanged).tupled)
+  infix def window_border(v: on | off) = this.ifChanged("window_border", v.toString)
+  infix def window_border_width(v: Int) = this.ifChanged("window_border_width", v.toString)
+  infix def active_window_border_color(v: Int) = this.ifChanged("active_window_border_color", v.hex)
+  infix def normal_window_border_color(v: Int) = this.ifChanged("normal_window_border_color", v.hex)
 
-  private def configIfChanged(key: String, value: String) =
+  infix def padding(v: Int): Unit = List(
+    "top_padding" -> s"$v",
+    "right_padding" -> s"$v",
+    "bottom_padding" -> s"$v",
+    "left_padding" -> s"$v"
+  ).map((this.ifChanged).tupled)
+
+  private def ifChanged(key: String, value: String) =
     if (this ! s"config $key" != value) this ! s"config $key $value"
 
 val yabai = Yabai(SystemRunner())

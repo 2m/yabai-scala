@@ -3,6 +3,7 @@ on:  # yamllint disable-line rule:truthy
   push:
     branches: main
     tags: ["*"]
+  pull_request:
 jobs:
   publish:
     runs-on: ubuntu-20.04
