@@ -31,7 +31,7 @@ class YabaiSuite extends MySuite:
 
   test("spaces") {
     val spaces = (0 to 9).toList
-    cmdReturns(Json.arr(spaces map (idx => Json.obj("index" -> Json.fromInt(idx)))*))
+    cmdReturns(Json.arr(spaces map (idx => Json.obj("id" -> Json.fromInt(idx)))*))
     yabai.spaces equalsTo spaces
   }
 

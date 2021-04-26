@@ -67,9 +67,8 @@ case class Yabai(runner: Runner):
       case Right(json)   => json
 
   private def cleanRules() =
-    val indices = this.rule("list") / root.each.selectDynamic("index").int
     for {
-      _ <- indices
+      _ <- spaces
     } yield this ! "rule --remove 0"
 
   def !(args: String) =
@@ -78,7 +77,7 @@ case class Yabai(runner: Runner):
   def ?(query: String): Json = parsed(this ! s"query --$query")
   def rule(query: String): Json = parsed(this ! s"rule --$query")
 
-  def spaces = this ? "spaces" / root.each.selectDynamic("index").int
+  def spaces: List[Int] = this ? "spaces" / root.each.id.int
 
   infix def no_manage(rules: Rule*) =
     cleanRules()
