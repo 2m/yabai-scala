@@ -29,3 +29,4 @@ developers := List(
   )
 )
 sonatypeProfileName := "lt.dvim"
+versionScheme := Some("semver-spec")
