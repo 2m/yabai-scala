@@ -2,7 +2,7 @@ organization := "lt.dvim.yabai"
 name := "yabai-scala"
 description := "Scala DSL for yabai configuration"
 
-scalaVersion := "3.0.0-RC3"
+scalaVersion := "3.0.0"
 
 scalacOptions += "-source:future"
 
