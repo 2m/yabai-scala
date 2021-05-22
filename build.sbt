@@ -14,6 +14,9 @@ libraryDependencies ++= Seq(
 
 scalafmtOnCompile := true
 
+scalafixOnCompile := true
+ThisBuild / scalafixDependencies += "com.nequissimus" %% "sort-imports" % "0.5.5"
+
 enablePlugins(AutomateHeaderPlugin)
 startYear := Some(2020)
 organizationName := "github.com/2m/yabai-scala/contributors"
