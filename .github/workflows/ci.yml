@@ -19,6 +19,7 @@ jobs:
       with:
         jvm: adopt:14
         apps: sbtn
+    - run: sbtn scalafixAll --check
     - run: sbtn scalafmtSbtCheck
     - run: sbtn scalafmtCheckAll
     - run: sbtn headerCheckAll

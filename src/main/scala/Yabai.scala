@@ -17,11 +17,12 @@
 package lt.dvim.yabai
 
 import scala.Conversion
-import sys.process.Process
+
 import io.circe.Json
-import io.circe.parser.parse
 import io.circe.optics.JsonPath.root
+import io.circe.parser.parse
 import monocle.Traversal
+import sys.process.Process
 
 extension (j: Json) def /[O](trav: Traversal[Json, O]) = trav.getAll(j)
 extension (d: Double) def str = f"$d%.4f"
