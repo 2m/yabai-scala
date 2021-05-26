@@ -69,7 +69,7 @@ case class Yabai(runner: Runner):
 
   private def cleanRules() =
     for {
-      _ <- spaces
+      _ <- rules
     } yield this ! "rule --remove 0"
 
   def !(args: String) =
@@ -78,6 +78,7 @@ case class Yabai(runner: Runner):
   def ?(query: String): Json = parsed(this ! s"query --$query")
   def rule(query: String): Json = parsed(this ! s"rule --$query")
 
+  def rules: List[Int] = rule("list") / root.each.id.int
   def spaces: List[Int] = this ? "spaces" / root.each.id.int
 
   infix def no_manage(rules: Rule*) =
