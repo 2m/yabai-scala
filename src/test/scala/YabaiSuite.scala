@@ -72,3 +72,25 @@ class YabaiSuite extends MySuite:
       "yabai -m config left_padding 5"
     ).foreach(yabai padding 5 cmdIs _)
   }
+
+  test("no_manage app") {
+    val rules = (0 to 1).toList
+    cmdReturns(Json.arr(rules map (idx => Json.obj("id" -> Json.fromInt(idx)))*))
+    yabai no_manage Rule.App("my-app") cmdIs Seq(
+      "yabai -m rule --list",
+      "yabai -m rule --remove 0",
+      "yabai -m rule --remove 0",
+      """yabai -m rule --add "app=^my-app$" manage=off"""
+    ).mkString
+  }
+
+  test("no_manage title") {
+    val rules = (0 to 1).toList
+    cmdReturns(Json.arr(rules map (idx => Json.obj("id" -> Json.fromInt(idx)))*))
+    yabai no_manage Rule.Title("my-title") cmdIs Seq(
+      "yabai -m rule --list",
+      "yabai -m rule --remove 0",
+      "yabai -m rule --remove 0",
+      """yabai -m rule --add "title=^my-title$" manage=off"""
+    ).mkString
+  }
