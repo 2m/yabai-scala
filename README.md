@@ -37,9 +37,9 @@ import lt.dvim.yabai.*
 import scala.language.implicitConversions
 
 @main def run() =
-    for {
+  for {
     _ <- (yabai.spaces.max until 10)
-    } yield yabai ! "space --create"
+  } yield yabai ! "space --create"
 ```
 
 is a standalone script, which when run by `sh` will create yabai spaces until the
@@ -55,4 +55,7 @@ Compiled Yabai (229ms)
 Executing: yabai -m query --spaces
 ```
 
+For a more complete example, check out [full Yabai configuration][yabai-config].
+
 [tsk]: https://github.com/tsk-tsk/tsk-tsk
+[yabai-config]: https://github.com/2m/dotfiles/blob/6a3beceb0e940d4f3665e3bbde690282d236bafd/home/private_Library/private_Application%20Support/yabai-scala/Yabai.scala
