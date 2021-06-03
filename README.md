@@ -58,4 +58,4 @@ Executing: yabai -m query --spaces
 For a more complete example, check out [full Yabai configuration][yabai-config].
 
 [tsk]: https://github.com/tsk-tsk/tsk-tsk
-[yabai-config]: https://github.com/2m/dotfiles/blob/6a3beceb0e940d4f3665e3bbde690282d236bafd/home/private_Library/private_Application%20Support/yabai-scala/Yabai.scala
+[yabai-config]: https://github.com/2m/dotfiles/blob/main/home/private_Library/private_Application%20Support/yabai-scala/Yabai.scala
