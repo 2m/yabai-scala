@@ -18,7 +18,7 @@ package lt.dvim.yabai
 
 import io.circe.Json
 
-open trait MySuite extends munit.FunSuite:
+trait MySuite extends munit.FunSuite:
   case class TestRunner() extends Runner:
     var json: Option[Json] = None
     var cmd = ""
