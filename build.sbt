@@ -2,7 +2,7 @@ organization := "lt.dvim.yabai"
 name := "yabai-scala"
 description := "Scala DSL for yabai configuration"
 
-scalaVersion := "3.0.0"
+scalaVersion := "3.0.1"
 
 libraryDependencies ++= Seq(
   ("io.circe"     %% "circe-parser" % "0.14.1").cross(CrossVersion.for3Use2_13),
