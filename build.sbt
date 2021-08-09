@@ -7,7 +7,7 @@ scalaVersion := "3.0.1"
 libraryDependencies ++= Seq(
   ("io.circe"     %% "circe-parser" % "0.14.1").cross(CrossVersion.for3Use2_13),
   ("io.circe"     %% "circe-optics" % "0.14.1").cross(CrossVersion.for3Use2_13),
-  "org.scalameta" %% "munit"        % "0.7.27" % Test
+  "org.scalameta" %% "munit"        % "0.7.28" % Test
 )
 
 scalafmtOnCompile := true
