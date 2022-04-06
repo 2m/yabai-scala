@@ -15,26 +15,15 @@ But eventually more useful features were implemented.
 ## Usage
 
 Yabai Scala can be used as a regular Scala library.
-However it works realy great with [tsk][].
-This allows seamless integration into system configuration dotfiles.
+However it works realy great with [scala-cli][].
+It allows seamless integration into system configuration dotfiles.
 
 For example the following file:
 
 ```scala
-// 2> /dev/null \
-/*
-scala_version="3.0.0-RC2"
-dependencies="
-  lt.dvim.yabai:yabai-scala_3.0.0-RC2:1.0.2
-"
-source $(curl -sL git.io/boot-tsk | sh)
-run
-exit
- */
+//> using lib "lt.dvim.yabai::yabai-scala:2.0.1"
 
 import lt.dvim.yabai.*
-
-import scala.language.implicitConversions
 
 @main def run() =
   for {
@@ -42,20 +31,16 @@ import scala.language.implicitConversions
   } yield yabai ! "space --create"
 ```
 
-is a standalone script, which when run by `sh` will create yabai spaces until the
-total number of spaces reaches 10:
+is a standalone Scala program, which when run with `scala-cli` will create
+yabai spaces until the total number of spaces reaches 10:
 
 ```sh
-~ ─╼ sh Yabai.scala                                                                                   0
-Fetching all libraries the script depends upon
- [##########]   Downloaded 1 POM files in 0 s
- [##########]   Downloaded 22 JAR files in 10 s
-Compiling Yabai (1 Scala source)
-Compiled Yabai (229ms)
+~ ─╼ scala-cli run Yabai.scala
+Compiling project (Scala 3.1.1, JVM)
 Executing: yabai -m query --spaces
 ```
 
 For a more complete example, check out [full Yabai configuration][yabai-config].
 
-[tsk]: https://github.com/tsk-tsk/tsk-tsk
+[scala-cli]: https://scala-cli.virtuslab.org/docs/overview
 [yabai-config]: https://github.com/2m/dotfiles/blob/main/home/private_Library/private_Application%20Support/yabai-scala/Yabai.scala
