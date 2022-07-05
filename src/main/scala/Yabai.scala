@@ -121,7 +121,7 @@ case class Yabai(runner: Runner):
     "right_padding" -> s"$v",
     "bottom_padding" -> s"$v",
     "left_padding" -> s"$v"
-  ).map((this.ifChanged).tupled)
+  ).map(this.ifChanged.tupled)
 
   private def ifChanged(key: String, value: String) =
     if (this ! s"config $key" != value) this ! s"config $key $value"
