@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
 scalafmtOnCompile := true
 
 scalafixOnCompile := true
-ThisBuild / scalafixDependencies += "com.nequissimus" %% "sort-imports" % "0.5.5"
+ThisBuild / scalafixDependencies += "com.nequissimus" %% "sort-imports" % "0.6.1"
 
 enablePlugins(AutomateHeaderPlugin)
 startYear := Some(2020)
