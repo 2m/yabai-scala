@@ -15,32 +15,37 @@ But eventually more useful features were implemented.
 ## Usage
 
 Yabai Scala can be used as a regular Scala library.
-However it works realy great with [scala-cli][].
+However it also works realy great as an executable [Scala][] script.
 It allows seamless integration into system configuration dotfiles.
 
-For example the following file:
+For example the following `Yabai` file is a standalone Scala program:
 
 ```scala
+#!/usr/bin/env -S scala shebang -S 3 -j 23
 //> using lib "lt.dvim.yabai::yabai-scala:2.0.1"
 
 import lt.dvim.yabai.*
 
-@main def run() =
-  for {
-    _ <- (yabai.spaces.max until 10)
-  } yield yabai ! "space --create"
+for {
+  _ <- (yabai.spaces.size until 10)
+} yield yabai ! "space --create"
+
+yabai window_gap 2
+yabai window_shadow off
+
+yabai padding 5
 ```
 
-is a standalone Scala program, which when run with `scala-cli` will create
-yabai spaces until the total number of spaces reaches 10:
+When run, it will create yabai spaces until the total number of spaces reaches 10.
+Also it will set window gap to 2, disable window shadows and set padding to 5.
+
+The only system dependency is `scala` itself, which can be installed with:
 
 ```sh
-~ ─╼ scala-cli run Yabai.scala
-Compiling project (Scala 3.1.1, JVM)
-Executing: yabai -m query --spaces
+brew install scala
 ```
 
 For a more complete example, check out [full Yabai configuration][yabai-config].
 
-[scala-cli]: https://scala-cli.virtuslab.org/docs/overview
-[yabai-config]: https://github.com/2m/dotfiles/blob/main/home/private_Library/private_Application%20Support/yabai-scala/Yabai.scala
+[scala]:       https://scala-cli.virtuslab.org/docs/overview
+[yabai-config]: https://github.com/2m/dotfiles/blob/main/home/private_Library/private_Application%20Support/yabai-scala/executable_Yabai

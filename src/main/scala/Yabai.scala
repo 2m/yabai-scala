@@ -16,8 +16,6 @@
 
 package lt.dvim.yabai
 
-import scala.Conversion
-
 import io.circe.Json
 import io.circe.optics.JsonPath.root
 import io.circe.parser.parse
@@ -68,9 +66,7 @@ case class Yabai(runner: Runner):
       case Right(json)   => json
 
   private def cleanRules() =
-    for {
-      _ <- rules
-    } yield this ! "rule --remove 0"
+    rules.foreach(_ => this ! "rule --remove 0")
 
   def !(args: String) =
     runner.run(s"yabai -m $args")
@@ -89,7 +85,7 @@ case class Yabai(runner: Runner):
         case Rule.Title(title) => s""""title=^$title$$""""
       }
       .map(r => s"rule --add $r manage=off")
-      .map(this ! _)
+      .foreach(this ! _)
 
   infix def window_topmost(v: on | off) = this.ifChanged("window_topmost", v.toString)
   infix def window_gap(v: Int) = this.ifChanged("window_gap", v.toString)
@@ -116,14 +112,14 @@ case class Yabai(runner: Runner):
   infix def active_window_border_color(v: Int) = this.ifChanged("active_window_border_color", v.hex)
   infix def normal_window_border_color(v: Int) = this.ifChanged("normal_window_border_color", v.hex)
 
-  infix def padding(v: Int): Unit = List(
+  infix def padding(v: Int) = List(
     "top_padding" -> s"$v",
     "right_padding" -> s"$v",
     "bottom_padding" -> s"$v",
     "left_padding" -> s"$v"
-  ).map(this.ifChanged.tupled)
+  ).foreach(this.ifChanged.tupled)
 
   private def ifChanged(key: String, value: String) =
-    if (this ! s"config $key" != value) this ! s"config $key $value"
+    Some(value).filter(this ! s"config $key" != _).foreach(v => this ! s"config $key $v")
 
 val yabai = Yabai(SystemRunner())
